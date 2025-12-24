@@ -45,3 +45,12 @@ yarn migration:run
 yarn migration:show
 yarn migration:revert
 ```
+
+## Commits
+
+This project uses [conventional commits](https://conventionalcommits.org) system. To commit, you must use meaningful commit messages:  
+`<type>(<scope>): <message>`. For example:
+
+`feat(auth): add bcrypt to hash passwords`
+OR
+`fix(photos): fix deleted photos being displayed`
