@@ -8,6 +8,8 @@ import {
 } from "typeorm"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { GraphQLScalarType } from "graphql"
+import { BadRequestException } from "@nestjs/common"
+import * as bcrypt from "bcryptjs"
 
 import { EnhancedBaseEntity } from "../shared/entities/enhanced-base.entity"
 
@@ -19,18 +21,31 @@ export class User extends EnhancedBaseEntity {
   id: string
 
   @Field({ description: "User login" })
-  @Column()
+  @Column({ unique: true })
   login: string
 
   @Column()
   password: string
 
-  @CreateDateColumn()
+  @Column()
+  salt: string
+
+  @Field({ description: "User's registration date" })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date
 
-  @DeleteDateColumn({ nullable: true })
+  @DeleteDateColumn({ name: "deleted_at", nullable: true })
   deletedAt?: Date
+
+  async validatePassword(password: string): Promise<boolean> {
+    if (!this.salt || !this.password) {
+      throw new BadRequestException("api.invalidCredentials")
+    }
+
+    const hash = await bcrypt.hash(password, this.salt)
+    return hash === this.password
+  }
 }

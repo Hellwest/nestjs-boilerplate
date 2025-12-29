@@ -7,10 +7,10 @@ import { DateScalarMode } from "@nestjs/graphql"
 import { getBoolean } from "./get-boolean"
 
 export const graphqlConfig: ApolloDriverConfig = {
-  validationRules: [depthLimit(Number(process.env.GRAPHQL_DEPTH_LIMIT) || 10)],
   driver: ApolloDriver,
-  debug: getBoolean(process.env.GRAPHQL_DEBUG, false),
-  playground: getBoolean(process.env.GRAPHQL_PLAYGROUND, false),
+  validationRules: [depthLimit(Number(process.env.GRAPHQL_DEPTH_LIMIT) || 10)],
+  debug: false,
+  graphiql: getBoolean(process.env.GRAPHQL_PLAYGROUND, false),
   introspection: getBoolean(process.env.GRAPHQL_INTROSPECTION, false),
   autoSchemaFile: path.join(process.cwd(), "_schema.graphql"),
   buildSchemaOptions: {

@@ -11,6 +11,7 @@ export const dbConfig: TypeOrmModuleOptions & PostgresConnectionOptions = {
   migrations: ["dist/migrations/*.js"],
   migrationsTransactionMode: "each",
   migrationsRun: process.env.DB_MIGRATIONS_RUN === "true",
+  useUTC: process.env.TZ === "UTC",
   logging: true,
   autoLoadEntities: true,
   synchronize: false,

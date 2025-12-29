@@ -1,13 +1,13 @@
 import { Query, Resolver } from "@nestjs/graphql"
-import { GraphQLInt } from "graphql"
+import { GraphQLInt, GraphQLScalarType } from "graphql"
 
 import { UsersService } from "./users.service"
 
-@Resolver("users")
+@Resolver()
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Query((): typeof GraphQLInt => GraphQLInt, {
+  @Query((): GraphQLScalarType => GraphQLInt, {
     name: "test",
     description: "test",
   })

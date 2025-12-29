@@ -2,7 +2,71 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""User's general information object"""
+type AuthType {
+  """User ID"""
+  userId: ID!
+
+  """User login"""
+  login: String!
+
+  """User registration date"""
+  createdAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Payload for registering a user"""
+type RegisterPayload {
+  """Created user's ID"""
+  recordId: ID!
+
+  """Auth payload"""
+  record: AuthType!
+}
+
+"""Payload for logging in"""
+type LoginPayload {
+  """User token"""
+  token: String!
+
+  """Auth payload"""
+  me: AuthType!
+}
+
 type Query {
+  """Get current user info"""
+  me: AuthType!
+
   """test"""
   test: Int!
+}
+
+type Mutation {
+  """Register a user"""
+  register(input: RegisterInput!): RegisterPayload!
+
+  """Log in as a user"""
+  login(input: LoginInput!): LoginPayload!
+}
+
+"""Sign up data"""
+input RegisterInput {
+  """User's login"""
+  login: String!
+
+  """User's password"""
+  password: String!
+}
+
+"""Sign in data"""
+input LoginInput {
+  """Login to sign in"""
+  login: String!
+
+  """User's password to sign in"""
+  password: String!
 }
