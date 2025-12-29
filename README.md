@@ -54,3 +54,12 @@ This project uses [conventional commits](https://conventionalcommits.org) system
 `feat(auth): add bcrypt to hash passwords`
 OR
 `fix(photos): fix deleted photos being displayed`
+
+For Husky hooks to work correctly when committing via VS Code you must create a file `~/.config/husky/init.sh` with the following content, assuming you're using [Node Version Manager](https://github.com/nvm-sh/nvm):
+
+```sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+Otherwise when trying to commit it throws "npx: not found" error
